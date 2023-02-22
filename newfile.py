@@ -2,9 +2,7 @@ import tkinter
 import tkintermapview
 import phonenumbers
 
-from click import style
-from colorama import Style
-from numpy import insert
+
 from opencage.geocoder import OpenCageGeocode
 from phonenumbers import geocoder
 from phonenumbers import carrier
@@ -41,15 +39,14 @@ def PhoneNUmber_Track():
     ceg = OpenCageGeocode(key)
     que = str(loc)
     res_1 = ceg.geocode(que)
-    #נתוני מיקום 
-    lat = res_1[1]['geometry']['lat']
-    lag = res_1[1]['geometry']['lat']
-    lag = res_1[0]['geometry']['lng']
-    lag = res_1[1]['geometry']['lng']
+    
+    lat = res_1[0]['geometry']['lat']
+    lag = res_1[0]['geometry']['lat']
+
     
     my_labl = LabelFrame(root)
     my_labl.pack(pady = 20)
-     # נתוני מפות
+  
     map = tkintermapview.TkinterMapView(my_labl,width=1000,height=1000 )
     map.set_position(lat,lag)
     map.set_marker(lat,lag , text= "phone location ")
@@ -57,7 +54,7 @@ def PhoneNUmber_Track():
     map.pack(fill="both",expand=True)
     adr = tkintermapview.convert_coordinates_to_address(lat,lag)
   
-   #נתוני טעינה של המערכת 
+  
     num1.insert(END,"The cuntry of number is : "+loc)
     num1.insert(END,"\nThe Sim card  of number is : "+ser)
     num1.insert(END,"\nlatitude : "+str(lat))
